@@ -1,121 +1,133 @@
-JARVIS v0.1
+##JARVIS v0.1
 
-JARVIS v0.1 is a simple, non-AI, voice-controlled PC assistant built in Python.
+A simple, non-AI, voice-controlled PC assistant built in Python.
 
-How to Use
-1. Install the required modules
+##Quick Start
 
-Make sure all Python modules used by JARVIS are installed before running the program.
+1.Install the required Python modules.
 
-The required modules include:
+2.Configure apps.json.
+
+3.Configure coords.json.
+
+4.Install WhatsApp Desktop.
+
+##Run JARVIS.
+
+Say "Hey Jarvis" or "Jarvis" before every command.
+
+That's it! 🎉
+
+Requirements
+
+JARVIS uses:
 
 pyttsx3
+
 SpeechRecognition
+
 PyAutoGUI
+
 Wikipedia
+
 PyAudio
 
-JARVIS also requires a working microphone.
+
+A working microphone is also required.
+
 
 Note: Speech recognition and Wikipedia require an internet connection.
 
-2. Configure apps.json
 
-Open apps.json.
+##Configuration
 
-For each application, enter the application's .exe location or its Windows Target alongside the app's name. The app names must be written in ALL CAPS.
+#apps.json
 
-To find an application's Target:
 
-Right-click the application's shortcut.
-Select Properties.
-Select the Target field, if it is selectable.
-Copy the Target and paste it into apps.json.
+Open apps.json and enter the .exe path or Windows Target of each application next to its name. App names must be written in ALL CAPS.
 
-If the Target field cannot be selected, take a screenshot of the Properties window and use an image-to-text tool to extract the Target text. You can use ImageToText.info for this if needed: ImageToText.info
+Example:
 
-After entering the path, replace every \ with \\ in the JSON file.
+{
 
-For example, C:\Program Files\App\App.exe becomes C:\\Program Files\\App\\App.exe.
+    "VSCODE": "C:\\Path\\To\\Code.exe",
+    
+    "CHROME": "C:\\Path\\To\\Chrome.exe"
+    
+}
 
-Important: If an application is moved or reinstalled, its path may change. Update apps.json if this happens.
+To find an application's Target, right-click its shortcut → Properties → Target.
 
-3. Configure coords.json
+If the Target cannot be copied, you can take a screenshot and use an image-to-text tool such as ImageToText.info to extract it.
 
-Open coords.json.
+Remember that Windows paths in JSON require \\ instead of \.
 
-For each required section, enter the X and Y mouse coordinates.
+If an application is moved or reinstalled, its path may need to be updated.
 
-After entering the coordinates, run coord_test.py to check whether they are correct.
+#coords.json
 
-Important: Mouse coordinates depend on your screen resolution, display scaling, and the position of elements on your screen. Coordinates that work on one computer may not work correctly on another.
+Some JARVIS features use mouse coordinates. Enter the required X and Y coordinates in coords.json.
+
+Run coord_test.py to check your coordinates before using JARVIS.
+
+Coordinates depend on your screen resolution, display scaling, and window layout, so they may need to be configured separately on different computers.
 
 If you don't have Minecraft installed, you can ignore the Minecraft coordinates.
 
-4. Configure WhatsApp
+#WhatsApp
 
-Make sure the WhatsApp Desktop application is installed on your PC.
+Make sure WhatsApp Desktop is installed. JARVIS uses the desktop application for WhatsApp features such as calling and messaging.
 
-JARVIS uses the desktop version for features such as calling and messaging.
-
-Using JARVIS
+##Commands
 
 JARVIS requires a wake word before commands.
 
-Say "Hey Jarvis" or simply "Jarvis" before every command. If you do not say the wake word, JARVIS will ignore the command.
+#Example:
+
+"Hey Jarvis, open Chrome"
+
+or:
+
+"Jarvis, what is the time?"
 
 Wikipedia
 
-You can ask JARVIS to search Wikipedia.
+Ask JARVIS to search Wikipedia:
 
-Example: "Hey Jarvis, Wikipedia Albert Einstein"
+"Hey Jarvis, Wikipedia Albert Einstein"
 
-JARVIS will return a short, approximately two-line summary of the Wikipedia page, if one exists.
+JARVIS will give a short summary if a Wikipedia page is available.
 
-Contacts
+##Contacts
 
 JARVIS can store alternative names for contacts.
 
-For example, if someone is saved as Rahul but you normally call them Bhai, you can say:
+#For example:
 
 "Hey Jarvis, add contact Rahul as Bhai"
 
-You can also use the person's WhatsApp number instead of their saved name.
+You can also use a person's WhatsApp number.
 
-If you want to type the information instead of speaking it, say "written" when JARVIS asks for it.
+If JARVIS asks for information that you would rather type, say "written" and enter it through the keyboard.
 
-Important Tips
-Always say "Jarvis" or "Hey Jarvis" before your command.
-Make sure your microphone is working.
-Make sure WhatsApp Desktop is installed.
-Make sure the paths in apps.json are correct.
-Test your coordinates using coord_test.py before using mouse-controlled features.
-Keep the required JSON files in the correct location alongside JARVIS.
-Make sure your screen resolution and display scaling have not changed after configuring your coordinates.
-If you move or reinstall an application, check and update its path in the appropriate JSON file.
-JARVIS requires an internet connection for speech recognition and Wikipedia features.
-Privacy and Security
+##Troubleshooting
 
-JARVIS may store information in JSON files such as clients.json, contacts.json, and notes.json. These files may contain personal or sensitive information.
+JARVIS doesn't hear me: Check your microphone, Windows microphone permissions, and make sure you're saying the wake word clearly.
+
+An application doesn't open: Check its path in apps.json.
+
+WhatsApp features don't work: Make sure WhatsApp Desktop is installed and check the relevant coordinates in coords.json.
+
+The mouse clicks the wrong place: Run coord_test.py and reconfigure the coordinates.
+
+##Privacy
+
+JARVIS may use files such as clients.json, contacts.json, and notes.json to store information.
 
 Do not upload real client information, personal contact information, passwords, API keys, or other private data to a public GitHub repository.
 
-If you are publishing JARVIS on GitHub, use empty or example JSON files instead. You can also add private files to .gitignore so Git does not upload them.
-
-Troubleshooting
-
-JARVIS does not hear me: Check that your microphone is connected, Windows has microphone permission enabled, the correct microphone is selected, and that you are speaking the wake word clearly.
-
-JARVIS does not open an application: Check the application's entry in apps.json and make sure the path is correct.
-
-WhatsApp features do not work correctly: Make sure WhatsApp Desktop is installed, check the coordinates in coords.json, run coord_test.py, and make sure the WhatsApp window layout matches the layout used when the coordinates were configured.
-
-Mouse-controlled features click the wrong place: Run coord_test.py and reconfigure the coordinates in coords.json.
+If you're publishing JARVIS, use empty/example JSON files instead.
 
 Enjoy!
-
-Your JARVIS v0.1 setup is complete.
-
-Have fun using it, experimenting with it, and adding your own features!
 
 JARVIS v0.1 — Built in Python.
