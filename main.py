@@ -86,7 +86,23 @@ while True:
                 os.startfile(value)
 
         else:
-            webbrowser.open(f"https://www.{app.lower()}.com")
+            dot_index = -1
+        
+            for i in range(len(app)):
+                if app[i] == '.':
+                    dot_index = i
+                    break
+        
+            if dot_index != -1:
+                if dot_index <= 3:
+                    if '.' in app[dot_index + 1:]:
+                        webbrowser.open(f"https://{app.lower()}")
+                    else:
+                        webbrowser.open(f"https://{app.lower()}.com")
+                else:
+                    webbrowser.open(f"https://www.{app.lower()}")
+            else:
+                webbrowser.open(f"https://www.{app.lower()}.com")
 
     # =====================================================
     # MINECRAFT
@@ -269,32 +285,6 @@ while True:
             # Only one number
             else:
                 phone = number
-
-        # -------------------------------------------------
-        # PASSPORT
-        # -------------------------------------------------
-
-        passport = ask_field("Passport")
-
-        if passport is None:
-            passport = ""
-
-        # -------------------------------------------------
-        # VISA
-        # -------------------------------------------------
-
-        visa = ask_field("Visa")
-
-        if visa is None:
-            visa = ""
-
-        # -------------------------------------------------
-        # DESTINATION
-        # -------------------------------------------------
-
-        destination = ask_field("Destination")
-
-        if destination is None:
             destination = ""
 
         # -------------------------------------------------
@@ -327,9 +317,6 @@ while True:
             "Email": email,
             "Phone": phone,
             "Whatsapp": whatsapp,
-            "Passport": passport,
-            "Visa": visa,
-            "Destination": destination,
             "Notes": notes
         }
 
@@ -364,8 +351,6 @@ while True:
             "email": "Email",
             "phone": "Phone",
             "whatsapp": "Whatsapp",
-            "passport": "Passport",
-            "visa": "Visa",
             "destination": "Destination",
             "notes": "Notes"
         }
