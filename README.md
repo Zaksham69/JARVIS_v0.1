@@ -20,11 +20,13 @@ A simple, non-AI, voice-controlled PC assistant built in Python.
 
 4.Install WhatsApp Desktop.
 
-##Run JARVIS.
+5.Run JARVIS-
 
-Say "Hey Jarvis" or "Jarvis" before every command.
+  (i)Run main.py
 
-That's it! 🎉
+  (ii)Say "Hey Jarvis" or "Jarvis" before every command.
+
+  That's it! 🎉
 
 Requirements
 
