@@ -137,17 +137,17 @@ and enter it using the keyboard.
 
 A typical JARVIS installation contains files such as:
 
-``
-JARVIS-V0.1/
-├── [main.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/main.py)
-├── [functions.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/functions.py)
-├── [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json)
-├── [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coords.json)
-├── [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/contacts.json)
-├── [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/clients.json)
-├── [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/notes.json)
-└── [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py)
-``
+
+- JARVIS-V0.1/
+  - ├── [main.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/main.py)
+  - ├── [functions.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/functions.py)
+  - |── [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json)
+  - ├── [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coords.json)
+  - ├── [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/contacts.json)
+  - ├── [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/clients.json)
+  - ├── [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/notes.json)
+  - └── [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py)
+
 
 JSON files are used for configurable data and stored information, while Python files contain the program logic.
 
