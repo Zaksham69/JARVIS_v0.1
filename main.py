@@ -100,7 +100,7 @@ while True:
                     else:
                         webbrowser.open(f"https://{app.lower()}.com")
                 else:
-                    webbrowser.open(f"https://www.{app.lower()}")
+                    webbrowser.open(f"https://{app.lower()}")
             else:
                 webbrowser.open(f"https://www.{app.lower()}.com")
 
