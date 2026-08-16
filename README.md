@@ -190,10 +190,10 @@ JARVIS-V0.1 is the beginning of the project, not the final version.
 
 More features and improvements will be added over time.
 
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License.
 
-❤️ Enjoy!
+## ❤️ Enjoy!
 
 JARVIS-V0.1 — Built in Python.
