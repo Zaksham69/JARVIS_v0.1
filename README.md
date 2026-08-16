@@ -16,17 +16,18 @@ It can open applications, call and message contacts, open websites, search Googl
 - 📝 Store and manage notes
 - 🖱️ Coordinate-based automation
 - ⚙️ Customizable application and coordinate configuration
-- 🛠️ Requirements
-  - Python
-  - Working microphone
-  - Internet connection for speech recognition and Wikipedia
-  - WhatsApp Desktop for calling and messaging
-  - Python modules
-  - pyttsx3
-  - SpeechRecognition
-  - PyAutoGUI
-  - Wikipedia
-  - PyAudio
+
+## 🛠️ Requirements
+- Python
+- Working microphone
+- Internet connection for speech recognition and Wikipedia
+- WhatsApp Desktop for calling and messaging
+- Python modules
+- pyttsx3
+- SpeechRecognition
+- PyAutoGUI
+- Wikipedia
+- PyAudio
 
 Install the required modules before running JARVIS.
 
@@ -136,6 +137,7 @@ and enter it using the keyboard.
 
 A typical JARVIS installation contains files such as:
 
+``
 JARVIS-V0.1/
 ├── [main.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/main.py)
 ├── [functions.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/functions.py)
@@ -145,6 +147,7 @@ JARVIS-V0.1/
 ├── [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/clients.json)
 ├── [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/notes.json)
 └── [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py)
+``
 
 JSON files are used for configurable data and stored information, while Python files contain the program logic.
 
