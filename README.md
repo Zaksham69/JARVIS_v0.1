@@ -53,7 +53,7 @@ Right-click → Properties → Target
 
 If the Target cannot be copied, you can use an image-to-text tool such as ImageToText.info.
 
-Remember to replace \ with \\ in JSON paths.
+Remember to replace \\ with \\\\ in JSON paths.
 
 **2. Configure coords.json**
 
