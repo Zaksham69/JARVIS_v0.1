@@ -352,9 +352,6 @@ while True:
             "email": "Email",
             "phone": "Phone",
             "whatsapp": "Whatsapp",
-            "passport": "Passport",
-            "destination": "Destination",
-            "visa": "Visa",
             "notes": "Notes"
         }
 
@@ -471,16 +468,7 @@ while True:
 
         elif field == "whatsapp" or "whatsapp" in field:
             sayywrite(clients[client].get("Whatsapp", ""))
-
-        elif field == "passport":
-            sayywrite(clients[client].get("Passport", ""))
-
-        elif field == "destination":
-            sayywrite(clients[client].get("Destination", ""))
-
-        elif field == "visa":
-            sayywrite(clients[client].get("Visa", ""))
-
+            
         elif field == "notes":
             sayywrite(str(clients[client].get("Notes", [])))
 
@@ -505,9 +493,6 @@ while True:
             "email": "Email",
             "phone": "Phone",
             "whatsapp": "Whatsapp",
-            "passport": "Passport",
-            "destination": "Destination",
-            "visa": "Visa"
         }
 
         field_key = field_map.get(field.lower())
