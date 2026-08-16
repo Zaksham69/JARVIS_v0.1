@@ -56,7 +56,25 @@ while True:
         continue
 
     print("Command:", cmd)
+    
+    # =====================================================
+    # MINECRAFT
+    # =====================================================
 
+    elif "minecraft" in cmd:
+        sayywrite("Opening Minecraft")
+
+        try:
+            os.startfile(APPS["TLAUNCHER"])
+        except KeyError:
+            sayywrite("TLauncher is not configured in apps.json.")
+            continue
+
+        _Time.sleep(45)
+
+        move(*COORDS["MINECRAFT"])
+        pyautogui.click()
+    
     # =====================================================
     # OPEN
     # =====================================================
@@ -104,23 +122,7 @@ while True:
             else:
                 webbrowser.open(f"https://www.{app.lower()}.com")
 
-    # =====================================================
-    # MINECRAFT
-    # =====================================================
 
-    elif "minecraft" in cmd:
-        sayywrite("Opening Minecraft")
-
-        try:
-            os.startfile(APPS["TLAUNCHER"])
-        except KeyError:
-            sayywrite("TLauncher is not configured in apps.json.")
-            continue
-
-        _Time.sleep(45)
-
-        move(*COORDS["MINECRAFT"])
-        pyautogui.click()
 
     # =====================================================
     # CALL
