@@ -32,7 +32,7 @@ It can open applications, call and message contacts, open websites, search Googl
 Install the required modules before running JARVIS.
 
 ## ⚡ Quick Start
-**1. Configure [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json)**
+**1. Configure [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/apps.json)**
 
 Add the .exe path or Windows Target of the applications you want JARVIS to control.
 
@@ -59,7 +59,7 @@ Remember to replace \\ with \\\\ in JSON paths.
 
 Some JARVIS features use mouse coordinates.
 
-Add the required X/Y coordinates to [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coords.json).
+Add the required X/Y coordinates to [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coords.json).
 
 Example:
 
@@ -71,7 +71,7 @@ Example:
     
 }
 
-Run [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py) to check your coordinates.
+Run [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coord_test.py) to check your coordinates.
 
 Coordinates depend on your screen resolution, display scaling, and window layout. You may need to configure them separately on different computers.
 
@@ -79,7 +79,7 @@ If you don't have Minecraft, you can ignore the Minecraft coordinates.
 
 ## 🎙️ Using JARVIS
 
-The main program is [main.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/main.py).
+The main program is [main.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/main.py).
 
 JARVIS uses a wake word before commands.
 
@@ -139,29 +139,29 @@ A typical JARVIS installation contains files such as:
 
 
 - JARVIS-V0.1/
-  - ├── [main.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/main.py)
-  - ├── [functions.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/functions.py)
-  - |── [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json)
-  - ├── [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coords.json)
-  - ├── [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/contacts.json)
-  - ├── [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/clients.json)
-  - ├── [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/notes.json)
-  - └── [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py)
+  - ├── [main.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/main.py)
+  - ├── [functions.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/functions.py)
+  - |── [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/apps.json)
+  - ├── [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coords.json)
+  - ├── [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/contacts.json)
+  - ├── [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/clients.json)
+  - ├── [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/notes.json)
+  - └── [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coord_test.py)
 
 
 JSON files are used for configurable data and stored information, while Python files contain the program logic.
 
 ## 🔧 Configuration Tips
-- Make sure all application paths in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json) are correct.
-- Run [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py) after configuring coordinates.
+- Make sure all application paths in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/apps.json) are correct.
+- Run [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coord_test.py) after configuring coordinates.
 - Make sure WhatsApp Desktop is installed for WhatsApp features.
 - Keep your screen resolution and display scaling consistent after configuring coordinates.
-- If an application is moved or reinstalled, update its path in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json).
+- If an application is moved or reinstalled, update its path in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/apps.json).
 - JARVIS requires an internet connection for speech recognition and Wikipedia.
 
 ## 🔒 Privacy
 
-JARVIS may store personal information in files such as [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/clients.json), [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/contacts.json), and [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/notes.json).
+JARVIS may store personal information in files such as [clients.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/clients.json), [contacts.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/contacts.json), and [notes.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/notes.json).
 
 Do not upload real client information, personal contact information, passwords, API keys, or other private data to a public GitHub repository.
 
@@ -174,7 +174,7 @@ Check your microphone, Windows microphone permissions, and make sure you are say
 
 An application doesn't open
 
-Check its path in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/apps.json).
+Check its path in [apps.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/apps.json).
 
 WhatsApp doesn't work correctly
 
@@ -182,7 +182,7 @@ Check that WhatsApp Desktop is installed and verify the relevant coordinates usi
 
 The mouse clicks the wrong place
 
-Reconfigure the coordinates in [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coords.json) and test them using [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/edit/main/coord_test.py).
+Reconfigure the coordinates in [coords.json](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coords.json) and test them using [coord_test.py](https://github.com/Zaksham69/JARVIS_v0.1/blob/main/coord_test.py).
 
 ## 🚀 What's Next?
 
