@@ -55,9 +55,10 @@ while True:
                 sayywrite("Sorry I didn't catch that")
                 continue
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
-            file.write(f"{times_open+1}, {hashed_password}")
+            times_open = times_open+1
+            file.write(f"{times_open}, {hashed_password}")
     with open("password.txt", "w") as file:
-        file.write(f"{times_open+1}, {hashed_password}")
+        file.write(f"{times_open}, {hashed_password}")
 
     if not cmd:
         continue
