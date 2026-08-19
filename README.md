@@ -85,8 +85,6 @@ Copy the Target path and add it to `apps.json`.
 
 ### 2. Automatic Coordinate Setup
 
-JARVIS can automatically detect the screen coordinates it needs instead of requiring you to manually enter every coordinate.
-
 On the first run, JARVIS will ask:
 
 > **Are you using Dark theme or Light theme on your PC?**
@@ -109,16 +107,6 @@ image3.png
 ```
 
 Changing their order may cause JARVIS to assign the wrong coordinate to the wrong UI element.
-
----
-
-## 🖥️ Screen Resolution
-
-Some coordinates are calculated relative to a **1920×1080 reference resolution**.
-
-This allows JARVIS to scale certain coordinates automatically when running on a different screen resolution.
-
----
 
 ## 🎙️ Using JARVIS
 
