@@ -39,8 +39,18 @@ You need:
 Install the required modules before running JARVIS:
 
 ```bash
-pip install pyautogui wikipedia pyttsx3 SpeechRecognition
+pip install pyautogui
 ```
+```
+pip install wikipedia
+```
+```
+pip install pyttsx3
+```
+```
+pip install SpeechRecognition
+```
+
 
 You may also need `PyAudio` depending on your system and speech-recognition setup.
 
