@@ -261,8 +261,13 @@ def locate_all(theme):
     list_of_coords = list(coords_content)
 
     for i, subject in enumerate(list_of_coords, start=1):
-        if i <= 4:
+        if i <= 3:
             subprocess.Popen(apps["WHATSAPP"])
+            locate(theme, f"image{i}.png", subject)
+        elif i == 4:
+            subprocess.Popen(apps['WHATSAPP'])
+            move(coords_content['WHATSAPP_FIRST_RESULT'])
+            pyautogui.click()
             locate(theme, f"image{i}.png", subject)
         elif i >= 5 and i <= 7:
             pass
