@@ -224,3 +224,48 @@ def return_noteFamily(noteFamily):
     notes = load_notes()
     for i in range(len(notes[noteFamily])):
         return f"      {i+1}. {notes[noteFamily][i]}\n"
+    
+# =========================================================
+# FIND AND SAVE COORDINATES
+# =========================================================
+
+def locate(theme, image, subject):
+
+    coords = load_json(COORDS_FILE)
+
+    if image == "image2.png":
+        width, height = pyautogui.size()
+        x_scale = width / 1920
+        y_scale = height / 1080
+        
+        x = 150 * x_scale
+        y = 270 * y_scale 
+        
+        coord = (x, y) 
+    
+    else:         
+        coord = pyautogui.locateCenterOnScreen(f"images/{theme}/{image}")
+
+    if coord is None:
+        return None
+
+    coords[subject] = [coord[0], coord[1]]
+
+    save_json(COORDS_FILE, coords)
+    return "Done"
+
+def locate_all(theme):
+    coords_content = load_json(COORDS_FILE)
+    apps = load_json(APPS_FILE)
+    
+    list_of_coords = list(coords_content)
+
+    for i, subject in enumerate(list_of_coords, start=1):
+        if i <= 4:
+            subprocess.Popen(apps["WHATSAPP"])
+            locate(theme, f"image{i}.png", subject)
+        elif i >= 5 and i <= 7:
+            pass
+        elif i == 8:
+            subprocess.Popen(apps["CHROME"])
+            locate(theme, f"image{i}.png", subject)
