@@ -1,66 +1,63 @@
+
+import pyautogui
 import datetime
-import hashlib
+import time as _Time
+import wikipedia
 import os
 import subprocess
-import time as _Time
 import webbrowser
-import pyautogui
-import wikipedia
 from functions import *
+import hashlib
 
-# =========================================================
-# PASSWORD / OPEN COUNT
-# =========================================================
-
-PASSWORD_FILE = SCRIPT_DIR / "password.txt"
-
-times_open = 0
-hashed_password = None
-
-if PASSWORD_FILE.exists():
-    with open(PASSWORD_FILE, "r", encoding="utf-8") as file:
-        content = file.read().strip()
-
-    if ", " in content:
-        i = content.find(", ")
-        try:
-            times_open = int(content[:i])
-            hashed_password = content[i + 2:].strip()
-        except ValueError:
-            times_open = 0
-            hashed_password = None
-    else:
-        times_open = 0
-        hashed_password = None
-
-# =========================================================
-# STARTUP
-# =========================================================
-
-home_screen()
-
-if times_open == 0 or not hashed_password:
-    password = ask_field("Enter your PC password for confirmations like shutdown")
-
-    if password is None:
-        sayywrite("Sorry, I didn't catch that.")
-        raise SystemExit
-
-    hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    times_open = 1
-else:
-    times_open += 1
-
-# Save updated opening count and password hash
-with open(PASSWORD_FILE, "w", encoding="utf-8") as file:
-    file.write(f"{times_open}, {hashed_password}")
 
 # =========================================================
 # MAIN LOOP
 # =========================================================
+with open("password.txt", "r") as file:
+    content = file.read()
+    i = content.find[', ']
+    times_open = content[:i]
+    
+home_screen()
 
+if times_open != 0:
+    times_open = times_open+1
+
+if times_open == 0:
+    while True:
+        global theme
+        theme = ask_field("Are you using Dark theme or light theme on your PC?")
+        if theme is None:
+            sayywrite("Sorry I didn't catch that")
+            continue
+        elif "dark" not in theme.lower() and "light" not in theme.lower():
+            sayywrite("Please answer 'dark theme' or 'light theme' as per your PC settings")
+            continue
+        
+        sayywrite("Kindly remove your hands from your keyboard or your mouse, configurating coordinates")
+        _Time.sleep(5)
+        if "dark" in theme:
+            theme = "dark"
+            
+        elif "light" in theme:
+            theme = "light"
+            
+        locate_all(theme)
+        
+        break
+        
 while True:
     cmd = listen()
+    if times_open == 0:
+        with open("password.txt", "w+") as file:
+            password = ask_field("Enter your PC password for confirmations like shutdown")
+            if password is None:
+                sayywrite("Sorry I didn't catch that")
+                continue
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            file.write(f"{times_open+1}, {hashed_password}")
+    with open("password.txt", "w") as file:
+        file.write(f"{times_open+1}, {hashed_password}")
 
     if not cmd:
         continue
@@ -83,34 +80,55 @@ while True:
 
     print("Command:", cmd)
 
+
     # =====================================================
     # MINECRAFT
     # =====================================================
 
     if "minecraft" in cmd:
-        sayywrite("Opening Minecraft")
+        delay = False
+        while True:
+            locateMC = locate(theme, "image4.png", "MINECRAFT")
+            locateUpY = locate(theme, "image5.png", "MINECRAFT_UPTADE_BUTTON_YES")
+            locateUpN = locate(theme, "image6.png", "MINECRAFT_UPTADE_BUTTON_NO")
 
-        try:
-            os.startfile(APPS["TLAUNCHER"])
-        except KeyError:
-            sayywrite("TLauncher is not configured in apps.json.")
-            continue
+            if locateMC is None:
+                if locateUpY is None:
+                    pass
+                elif locateUpY is "Done":
+                    sayywrite("A Tlauncher update is Available")
+                    while True:
+                        updateYN = ask_field("Would you like me to update it?")
+                        if updateYN is None:
+                            sayywrite("Sorry, I didn't catch that")
+                            continue
+                        elif updateYN == "Yes" or "yes" in updateYN:
+                            sayywrite("Updating Tlauncher")
+                            delay = True
+                            move(*COORDS["MINECRAFT_UPTADE_BUTTON_YES"])
+                            pyautogui.click()
+                            break
+                        else:
+                            sayywrite("That would be counted as a no.")
+                            move(*COORDS["MINECRAFT_UPTADE_BUTTON_NO"])
+                            pyautogui.click()
+                            break
+                if delay == True:
+                    _Time.sleep(150)
+                    continue
+                _Time.sleep(0.2)
+                continue
 
-        _Time.sleep(45)
-
-        try:
-            move(*COORDS["MINECRAFT"])
-            pyautogui.click()
-        except KeyError:
-            sayywrite("Minecraft coordinates are not configured.")
-            continue
-
+            elif locateMC == "Done":
+                move(*COORDS["MINECRAFT"])
+                pyautogui.click()
+                break
     # =====================================================
     # OPEN
     # =====================================================
 
     elif cmd.startswith("open"):
-        app = cmd.replace("open", "", 1).strip().upper()
+        app = cmd.replace("open ", "", 1).strip().upper()
 
         if app == "GOOGLE":
             app = "CHROME"
@@ -124,7 +142,10 @@ while True:
 
             # Microsoft Store app
             elif isinstance(value, str) and value.endswith("!App"):
-                subprocess.Popen(["explorer.exe", f"shell:AppsFolder\\{value}"])
+                subprocess.Popen([
+                    "explorer.exe",
+                    f"shell:AppsFolder\\{value}"
+                ])
 
             # Normal executable
             elif isinstance(value, str):
@@ -148,10 +169,11 @@ while True:
                     else:
                         webbrowser.open(f"https://{app.lower()}.com")
                 else:
-                    webbrowser.open(f"https://www.{app.lower()}")
+                    webbrowser.open(f"https://{app.lower()}")
             # No dot
             else:
                 webbrowser.open(f"https://www.{app.lower()}.com")
+
 
     # =====================================================
     # CALL
@@ -160,6 +182,7 @@ while True:
     elif "call" in cmd:
         name = cmd.replace("call", "", 1).strip()
         contact = CONTACTS.get(name, name)
+
         call(contact)
 
     # =====================================================
@@ -168,6 +191,7 @@ while True:
 
     elif "time" in cmd:
         now = datetime.datetime.now()
+
         sayywrite(f"The time is {now.strftime('%I:%M %p')}")
 
     # =====================================================
@@ -176,6 +200,7 @@ while True:
 
     elif "date" in cmd:
         now = datetime.datetime.now()
+
         sayywrite(f"The date is {now.strftime('%A %d %B %Y')}")
 
     # =====================================================
@@ -192,6 +217,7 @@ while True:
         try:
             result = wikipedia.summary(query, sentences=2)
             sayywrite(result)
+
         except Exception as e:
             print(e)
             sayywrite("Sorry, I couldn't find information.")
@@ -208,24 +234,19 @@ while True:
             continue
 
         try:
-            value = APPS["CHROME"]
-            if isinstance(value, list):
-                subprocess.Popen(value)
-            else:
-                subprocess.Popen(value)
+            subprocess.Popen(APPS["CHROME"])
+
         except KeyError:
             sayywrite("Chrome is not configured in apps.json.")
             continue
 
         _Time.sleep(2)
 
-        try:
-            move(*COORDS["CHROME_SEARCH_BOX"])
-            pyautogui.click()
-            write(query)
-            pyautogui.press("enter")
-        except KeyError:
-            sayywrite("Chrome search coordinates are not configured.")
+        move(*COORDS["CHROME_SEARCH_BOX"])
+        pyautogui.click()
+
+        write(query)
+        pyautogui.press("enter")
 
     # =====================================================
     # SHUTDOWN
@@ -234,19 +255,13 @@ while True:
     elif "shutdown" in cmd:
         confirm = ask_field("Password")
 
-        if confirm is None:
-            sayywrite("Cancelled")
-            continue
-
-        entered_hash = hashlib.sha256(confirm.encode()).hexdigest()
-
-        if entered_hash == hashed_password:
-            sayywrite("Password accepted.")
+        if confirm and password in confirm:
             pyautogui.hotkey("win", "x")
             pyautogui.press("u")
             pyautogui.press("u")
+
         else:
-            sayywrite("Incorrect password. Cancelled.")
+            sayywrite("Cancelled")
 
     # =====================================================
     # ADD CONTACT
@@ -254,16 +269,23 @@ while True:
 
     elif "add contact" in cmd:
         try:
-            parts = cmd.replace("add contact", "", 1).strip().split(" as ")
+            parts = (
+                cmd.replace("add contact", "", 1)
+                .strip()
+                .split(" as ")
+            )
+
             nickname = parts[0].strip()
             name = parts[1].strip()
-
             if nickname == "written":
-                nickname = input("Contact: ").strip()
+                nickname = input("Contact: ")
 
             CONTACTS[name] = nickname
+
             save_json(CONTACTS_FILE, CONTACTS)
+
             sayywrite("Contact added.")
+
         except Exception as e:
             print(e)
             sayywrite("Say: add contact [number] as [nickname]")
@@ -274,58 +296,111 @@ while True:
 
     elif "add client" in cmd:
         clients = load_clients()
+
         client = cmd.replace("add client", "", 1).strip()
 
         if not client:
             sayywrite("Please provide the client name.")
             continue
 
-        # Email
+        # -------------------------------------------------
+        # EMAIL
+        # -------------------------------------------------
+
         email = ask_field("Email")
+
         if email is None:
             sayywrite("Client was not added.")
             continue
 
-        # Phone / WhatsApp
+        # -------------------------------------------------
+        # PHONE / WHATSAPP
+        # -------------------------------------------------
+
         number = ask_field("Phone number/Whatsapp number (if any)")
+
         phone = ""
         whatsapp = ""
 
         if number:
             number = number.strip()
+
+            # Example:
+            # 9876543210/9876543211
+            # Phone / WhatsApp
+
             if "/" in number:
                 i = number.find("/")
+
                 phone = number[:i].strip()
                 whatsapp = number[i + 1:].strip()
+
+            # Only one number
             else:
                 phone = number
 
-        # Notes
+        # -------------------------------------------------
+        # PASSPORT
+        # -------------------------------------------------
+
+        passport = ask_field("Passport")
+
+        if passport is None:
+            passport = ""
+
+        # -------------------------------------------------
+        # VISA
+        # -------------------------------------------------
+
+        visa = ask_field("Visa")
+
+        if visa is None:
+            visa = ""
+
+        # -------------------------------------------------
+        # DESTINATION
+        # -------------------------------------------------
+
+        destination = ask_field("Destination")
+
+        if destination is None:
+            destination = ""
+
+        # -------------------------------------------------
+        # NOTES
+        # -------------------------------------------------
+
         notes = []
+
         sayywrite("Are there any extra or personal notes on this client?")
+
         notes_cfrm = listen()
 
         if notes_cfrm and "yes" in notes_cfrm.lower():
             note = ask_field("Your Note")
+
             if note:
                 while note.lower() != "no":
                     notes.append(note)
+
                     note = ask_field("Any other note")
+
                     if note is None:
                         break
 
-        # Save Client
+        # -------------------------------------------------
+        # SAVE CLIENT
+        # -------------------------------------------------
+
         clients[client] = {
             "Email": email,
             "Phone": phone,
             "Whatsapp": whatsapp,
-            "Passport": "",
-            "Destination": "",
-            "Visa": "",
             "Notes": notes
         }
 
         save_clients(clients)
+
         sayywrite(f"{client} has been added and updated.")
 
     # =====================================================
@@ -334,6 +409,7 @@ while True:
 
     elif "edit client" in cmd:
         clients = load_clients()
+
         client = cmd.replace("edit client", "", 1).strip()
 
         if client not in clients:
@@ -348,6 +424,8 @@ while True:
             continue
 
         field = field.strip()
+
+        # Match field names regardless of capitalization.
         field_map = {
             "email": "Email",
             "phone": "Phone",
@@ -368,12 +446,14 @@ while True:
             sayywrite("Sorry I didn't catch that.")
             continue
 
+        # Notes should remain a list.
         if field_key == "Notes":
             clients[client][field_key] = [value]
         else:
             clients[client][field_key] = value
 
         save_clients(clients)
+
         sayywrite("Client edited.")
 
     # =====================================================
@@ -382,6 +462,7 @@ while True:
 
     elif "show client all fields" in cmd:
         clients = load_clients()
+
         client = cmd.replace("show client all fields", "", 1).strip()
 
         if client not in clients:
@@ -389,9 +470,11 @@ while True:
             continue
 
         print(clients[client])
+
         sayywrite("Would you like me to recite it for you? Or show it in a file?")
 
         confirm = listen()
+
         if confirm is None:
             sayywrite("Sorry I didn't catch that.")
             continue
@@ -400,14 +483,16 @@ while True:
 
         if "yes" in confirm:
             for key, value in clients[client].items():
-                sayywrite(f"{key}: {value}")
+                say(f"{key}: {value}")
 
         elif "show it in a file" in confirm:
             sayywrite("Opening client.txt")
+
             client_file = SCRIPT_DIR / "client.txt"
 
             with open(client_file, "w", encoding="utf-8") as file:
                 file.write(f"Client: {client}\n\n")
+
                 for key, value in clients[client].items():
                     file.write(f"{key}: {value}\n")
 
@@ -419,6 +504,7 @@ while True:
 
     elif "show client" in cmd:
         clients = load_clients()
+
         client = cmd.replace("show client", "", 1).strip()
 
         if client not in clients:
@@ -426,6 +512,7 @@ while True:
             continue
 
         sayywrite("Which field?")
+
         field = listen()
 
         if field is None:
@@ -434,11 +521,17 @@ while True:
 
         field = field.lower().strip()
 
+        # -------------------------------------------------
+        # ALL FIELDS
+        # -------------------------------------------------
+
         if field in ("all", "all fields"):
             print(clients[client])
+
             sayywrite("Would you like me to recite it for you? Or show it in a file?")
 
             confirm = listen()
+
             if confirm is None:
                 sayywrite("Sorry I didn't catch that.")
                 continue
@@ -451,26 +544,52 @@ while True:
 
             elif "show it in a file" in confirm:
                 sayywrite("Opening client.txt")
+
                 client_file = SCRIPT_DIR / "client.txt"
 
                 with open(client_file, "w", encoding="utf-8") as file:
                     file.write(f"Client: {client}\n\n")
+
                     for key, value in clients[client].items():
                         file.write(f"{key}: {value}\n")
 
                 os.startfile(client_file)
 
+        # -------------------------------------------------
+        # EMAIL
+        # -------------------------------------------------
+
         elif field == "email":
-            sayywrite(clients[client].get("Email", ""))
+            sayywrite(clients[client]["Email"])
+
+        # -------------------------------------------------
+        # PHONE
+        # -------------------------------------------------
 
         elif field == "phone" or "phone" in field:
-            sayywrite(clients[client].get("Phone", ""))
+            sayywrite(clients[client]["Phone"])
+
+        # -------------------------------------------------
+        # WHATSAPP
+        # -------------------------------------------------
 
         elif field == "whatsapp" or "whatsapp" in field:
-            sayywrite(clients[client].get("Whatsapp", ""))
-            
+            sayywrite(clients[client]["Whatsapp"])
+
+        # -------------------------------------------------
+        # PASSPORT
+        # -------------------------------------------------
+
+        # -------------------------------------------------
+        # NOTES
+        # -------------------------------------------------
+
         elif field == "notes":
-            sayywrite(str(clients[client].get("Notes", [])))
+            sayywrite(str(clients[client]["Notes"]))
+
+        # -------------------------------------------------
+        # INVALID FIELD
+        # -------------------------------------------------
 
         else:
             sayywrite("The field doesn't exist.")
@@ -481,174 +600,115 @@ while True:
 
     elif "search field" in cmd:
         clients = load_clients()
-        field = cmd.replace("search field", "", 1).strip()
 
+        field = cmd.replace("search field ", "").strip()
         value = ask_field("Value?")
 
-        if value is None:
-            sayywrite("Sorry, I didn't catch the value.")
-            continue
+        client_list = list(clients.items())
 
-        field_map = {
-            "email": "Email",
-            "phone": "Phone",
-            "whatsapp": "Whatsapp",
-        }
+        for i in range(len(client_list)):
+            client = client_list[i][1]
 
-        field_key = field_map.get(field.lower())
-
-        if field_key is None:
-            sayywrite("That field doesn't exist.")
-            continue
-
-        found_client = None
-
-        for client_name, client_data in clients.items():
-            if str(client_data.get(field_key, "")).lower() == value.lower():
-                found_client = client_name
+            if client.get(field) == value:
                 break
+            else:
+                client = None
 
-        if found_client is None:
-            sayywrite("Client not detected.")
+        if client is None:
+            sayywrite("Client not detected")
         else:
-            sayywrite(f"Client found: {found_client}")
+            sayywrite(client)
 
     # =====================================================
-    # ADD NOTE FAMILY
+    # NOTES 
     # =====================================================
-
+    
     elif "add note family" in cmd:
-        noteFamily = cmd.replace("add note family", "", 1).strip()
-
-        if not noteFamily:
-            sayywrite("Please provide a note family name.")
-            continue
-
+        noteFamily = cmd.replace("add note family ", "").strip()
         notes = load_notes()
-
         if noteFamily in notes:
-            sayywrite("Note family already exists. Would you like me to replace it?")
+            sayywrite("Note family already exists, would you like me to replace it?")
             replaceYN = listen()
-
-            if replaceYN is None:
+            if replaceYN.lower() == "yes":
+                notes[noteFamily] = []
+            elif replaceYN is None:
                 sayywrite("Sorry I didn't catch that.")
                 continue
-
-            if "yes" in replaceYN.lower():
-                notes[noteFamily] = []
             else:
                 continue
-        else:
-            notes[noteFamily] = []
-
-        sayywrite("Note family added. Would you like to enter your first note in it?")
+            
+        notes[noteFamily] = []
+        sayywrite("Note family added, would you like to enter your first note in it?")
         confirm_note = listen()
-
         if confirm_note is None:
             sayywrite("Sorry I didn't catch that.")
             continue
-
-        if "yes" in confirm_note.lower():
-            sayywrite(f"What is your first note in {noteFamily}?")
+        elif confirm_note.lower() == "yes":
+            sayywrite(f"What is your first note in {noteFamily}")
             note = listen()
-
             if note is None:
                 sayywrite("Sorry I didn't catch that.")
                 continue
-
             notes[noteFamily].append(note)
-
+            
         save_notes(notes)
-
-    # =====================================================
-    # ADD NOTE
-    # =====================================================
-
-    elif "add note" in cmd:
+     
+    elif "add note" in cmd :
         notes = load_notes()
-        query = cmd.replace("add note", "", 1).strip()
-
-        if " in note family " in query:
+        query = cmd.replace("add note ", "").strip()
+        if "in note family" in cmd:            
             i = query.find(" in note family ")
-            note = query[:i].strip()
-            noteFamily = query[i + len(" in note family "):].strip()
+            note = query[:i]
+            noteFamily = query[i+len(" in note family ")-1:]
         else:
             note = query
-            noteFamily = ask_field("Note family?")
-
+            noteFamily = ask_field("Note family?")  
             if noteFamily is None:
                 sayywrite("Sorry, I didn't catch that.")
-                continue
-
+                continue 
         if noteFamily not in notes:
             sayywrite("Note family does not exist.")
             continue
-
-        if note in notes[noteFamily]:
-            sayywrite("Note already exists. Do you want me to replace it?")
+        elif note in notes[noteFamily]:
+            sayywrite("Note already exists, do you want me to replace it?")
             confirm = listen()
-
             if confirm is None:
                 sayywrite("Sorry, I didn't catch that.")
                 continue
-
-            if "yes" in confirm.lower():
-                notes[noteFamily].remove(note)
+            elif confirm.lower() == "yes" or "yes" in confirm.lower():
+                sayywrite("Thanks for the confirmation.")
+                notes[noteFamily].remove(notes)
             else:
-                sayywrite("That would be taken as a no.")
+                sayywrite("That would be taken as a no")
                 continue
-
-        notes[noteFamily].append(note)
-        save_notes(notes)
-        sayywrite("Note added.")
-
-    # =====================================================
-    # SHOW NOTE FAMILY
-    # =====================================================
-
+        
+        notes[noteFamily].append(note)                                          
+        
     elif "show note family" in cmd:
-        notes = load_notes()
-        noteFamily = cmd.replace("show note family", "", 1).strip()
-
+        notes = load_notes
+        noteFamily = cmd.replace("show note family ", "").strip()
         if noteFamily not in notes:
             sayywrite("Note family does not exist.")
             continue
-
         print_noteFamily(noteFamily)
-        sayywrite("Note Family printed. Would you like me to recite it for you, or show it in a file?")
-
+        sayywrite("Note Family printed, would you like to recite it for you? Or perhaps show it in a file?")
         show = listen()
-
         if show is None:
-            sayywrite("Sorry I didn't catch that.")
+            sayywrite("Sorry I didn't catch that." )
             continue
-
-        show = show.lower()
-
-        if "recite" in show or "yes" in show:
-            for note in notes[noteFamily]:
-                sayywrite(note)
-
-        elif "file" in show:
-            sayywrite("Opening noteFamily.txt")
-            note_file = SCRIPT_DIR / "noteFamily.txt"
-
-            with open(note_file, "w", encoding="utf-8") as file:
-                notefamily_text = noteFamily + " ->\n" + return_noteFamily(noteFamily)
-                file.write(notefamily_text)
-
-            os.startfile(note_file)
-
+        elif "recite" in show.lower():
+            sayywrite(notes[noteFamily])
+        elif "file" in show.lower():
+            with open("noteFamily.txt", "w")as file:
+                notefamily = noteFamily+'->\n'+return_noteFamily(noteFamily)
+                file.write(notefamily)
+            os.startfile(SCRIPT_DIR/"noteFamily")
     # =====================================================
     # EXIT
     # =====================================================
 
     elif "exit" in cmd:
         sayywrite("Are you sure?")
-        confirm = listen()
+        sayywrite("Goodbye!")
+        break
 
-        if confirm and "yes" in confirm.lower():
-            sayywrite("Goodbye!")
-            break
-        else:
-            sayywrite("Cancelled.")
