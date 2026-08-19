@@ -23,11 +23,11 @@ It can open applications, call and message contacts, open websites, search Googl
 - Internet connection for speech recognition and Wikipedia
 - WhatsApp Desktop for calling and messaging
 - Python modules
-- pyttsx3
-- SpeechRecognition
-- PyAutoGUI
-- Wikipedia
-- PyAudio
+  - pyttsx3
+  - SpeechRecognition
+  - PyAutoGUI
+  - Wikipedia
+  - PyAudio
 
 Install the required modules before running JARVIS.
 
