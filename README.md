@@ -202,13 +202,16 @@ JARVIS-V0.1/
 │
 ├── main.py
 ├── functions.py
-├── apps.json
-├── coords.json
-├── contacts.json
-├── clients.json
-├── notes.json
-├── coord_test.py
-│
+├── Configurates/
+    |──apps.json
+    ├── coords.json
+    ├── contacts.json
+    ├── clients.json
+    ├── notes.json
+|── textFiles/
+    |── noteFamily.txt
+    |── client.txt
+    |── password.txt (hasshed password
 └── images/
     ├── dark/
     └── light/
