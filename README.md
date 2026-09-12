@@ -1,4 +1,4 @@
-# 🤖 JARVIS-V0.1
+# 🤖 Jarvis
 
 **JARVIS-V0.1** is a simple, non-AI, voice-controlled PC assistant built with Python.
 
