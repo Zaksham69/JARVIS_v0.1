@@ -203,15 +203,15 @@ JARVIS-V0.1/
 ├── main.py
 ├── functions.py
 ├── Configurates/
-    |──apps.json
+    ├── apps.json
     ├── coords.json
     ├── contacts.json
     ├── clients.json
-    ├── notes.json
+    └── notes.json
 |── textFiles/
-    |── noteFamily.txt
-    |── client.txt
-    |── password.txt (hasshed password
+    ├── noteFamily.txt
+    ├── client.txt
+    └── password.txt (hasshed password
 └── images/
     ├── dark/
     └── light/
