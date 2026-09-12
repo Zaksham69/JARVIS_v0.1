@@ -1,6 +1,6 @@
 # 🤖 Jarvis
 
-**JARVIS-V0.1** is a simple, non-AI, voice-controlled PC assistant built with Python.
+**Jarvis** is a simple, non-AI, voice-controlled PC assistant built with Python.
 
 It can open applications, call and message contacts, open websites, search Google, search Wikipedia and summarize results, manage contacts and clients, organize notes, and automatically configure screen coordinates.
 
